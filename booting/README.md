@@ -16,3 +16,10 @@
 - Config data file ... default  application.properties (yml), or --spring.config.name=...  or spring.config.location=...
 - OS environment variable
 - Command line arguments
+
+
+## LOGGING
+- to specify the file that logs should go, set the **logging.file.name** or **logging.file.path**
+- if you want to specify the log directory other than the root, them use **logging.file.path**
+- default rolls over after it reached **10MB** or its **7days old**
+- we can control this using **logging.logback.rollingpolicy.max-file-size** and **logging.logback.rollingpolicy.max-history**

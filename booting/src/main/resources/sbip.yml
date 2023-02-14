@@ -16,3 +16,20 @@ cp:
         enabled: true
         token: asdfYYdakfskjfskjfjfskjs
         roles: USER,ADMIN
+
+#debug: true
+#trace: true
+
+logging:
+  file:
+    path: C:/sbip/logs
+
+  pattern:
+    console: '%clr(%d{dd-MM-yyyy HH:mm:ss.SSS}){yellow}
+    %clr(${PID:- }){green} %magenta([%thread]) %highlight([%-5level])
+    %clr(%-40.40logger{39}){cyan} %msg%n'
+
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
+      max-history: 2
