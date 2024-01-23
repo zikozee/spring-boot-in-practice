@@ -11,3 +11,9 @@
   - NoSuchBeanDefinitionFailureAnalyzer is invoked when a NoSuchBeanDefinitionException exception occurs.
   - DataSourceBeanCreationFailureAnalyzer, which is invoked whenever a DataSourceBeanCreationException
     - this is where why see **datasource url not defined**
+
+# Management endpoint details
+- see application.yml
+
+# Custom Spring Boot Actuator
+- 

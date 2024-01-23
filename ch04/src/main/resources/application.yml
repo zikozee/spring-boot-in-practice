@@ -1,3 +1,28 @@
+server:
+  port: 8080
 testing:
   condition: yeppee
   condition2: yeppee2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: threaddump,heapdump
+      # changing actuator context path
+      base-path: /sbip
+      # changing actuator endpoint path e.g health to appHealth :: -> http://localhost:8081/sbip/appHealth
+      path-mapping:
+        health: appHealth
+  # displaying management endpoint details
+  endpoint:
+    health:
+      show-details: always
+    # always, never, when_authorized
+      # the extra details will show when the endpoint is authorized carrying the role read or update
+#      show-details: when_authorized
+#      roles: read,update
+  # changing actuator port away from application port
+  server:
+    port: 8081

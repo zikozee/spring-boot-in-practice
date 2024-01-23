@@ -19,6 +19,6 @@ public class UrlAccessibilityHandler {
     @EventListener(classes = ContextRefreshedEvent.class) // the Event Listener is invoked once Spring Boot Publishes ContextRefreshedEvent
     public void listen(){
         // throw this exception as we assume the sight is not reachable
-        throw new UrlNotAccessibleException(url);
+//        throw new UrlNotAccessibleException(url);  // comment out to disable
     }
 }
