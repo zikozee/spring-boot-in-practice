@@ -8,8 +8,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
-        exclude: threaddump,heapdump
+        include: health, info, metrics, releaseNotes
+#        exclude: threaddump,heapdump
       # changing actuator context path
       base-path: /sbip
       # changing actuator endpoint path e.g health to appHealth :: -> http://localhost:8081/sbip/appHealth
