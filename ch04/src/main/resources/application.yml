@@ -1,3 +1,5 @@
+
+
 server:
   port: 8080
 testing:
@@ -33,6 +35,16 @@ management:
   # changing actuator port away from application port
   server:
     port: 8081
+  zipkin:
+    tracing:
+      endpoint: http://${ZIPKIN_HOST:localhost}:9411/api/v2/spans
+
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    tags:
+      application:
 
 info:
   build:
@@ -58,3 +70,9 @@ spring:
     username: sa
     hikari:
       password: password
+  application:
+    name: actuator-observability
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
