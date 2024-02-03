@@ -8,7 +8,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, metrics, releaseNotes
+        include: health, info, metrics, releaseNotes, prometheus
 #        exclude: threaddump,heapdump
       # changing actuator context path
       base-path: /sbip
@@ -23,7 +23,6 @@ management:
       # the extra details will show when the endpoint is authorized carrying the role read or update
 #      show-details: when_authorized
 #      roles: read,update
-  # changing actuator port away from application port
   info:
     env:
       enabled: true
@@ -31,6 +30,7 @@ management:
       enabled: true
     os:
       enabled: true
+  # changing actuator port away from application port
   server:
     port: 8081
 
@@ -41,3 +41,20 @@ info:
     description: @project.description@
     version: @project.version@
     properties.java.version: @java.version@
+
+
+# Course Tracker
+spring:
+  sql:
+    init:
+      mode: never
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    username: sa
+    hikari:
+      password: password

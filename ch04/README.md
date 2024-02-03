@@ -16,4 +16,8 @@
 - see application.yml
 
 # Custom Spring Boot Actuator
-- 
+- call http://localhost:8081/sbip/metrics/api.courses.created.count  (CourseTrackerMetricsConfiguration)
+- Counter Metric: a single numeric value that is incremented but lost on restart as its not persisted
+- Gauge Metric: a db query can be exposed to gauge metric http://localhost:8081/sbip/metrics/api.courses.created.gauge
+- Timer: measure time taken for an event: http://localhost:8081/sbip/metrics/api.courses.creation.time
+- Distribution Summary: measure the distribution of events
