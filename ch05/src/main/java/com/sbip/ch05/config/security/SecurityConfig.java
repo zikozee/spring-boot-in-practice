@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -38,12 +39,14 @@ public class SecurityConfig {
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
-                .formLogin(login ->
-                        login.loginPage("/login"))
-                .exceptionHandling(ex ->
-                        ex.accessDeniedHandler(customAccessDeniedhandler)
-                                .accessDeniedPage("/index")
-                )
+//                .formLogin(login ->
+//                        login.loginPage("/login"))
+//                .exceptionHandling(ex ->
+//                        ex.accessDeniedHandler(customAccessDeniedhandler)
+//                                .accessDeniedPage("/index")
+//                )
+                //Using httpBasic in place of form login above  (this opens a dialogue box)
+                .httpBasic(Customizer.withDefaults())
 
                 .build();
     }
@@ -82,7 +85,8 @@ public class SecurityConfig {
     }
 
 
-    //ldap config
+    //LDAP config
+    // using ldap in place of UserDetailsService  see (CustomUserDetailService :: as bean annotation i.e @Service is commented out)
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
