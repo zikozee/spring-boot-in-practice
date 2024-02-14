@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ch05" />
         <module name="ch03" />
         <module name="ch04" />
         <module name="booting" />
@@ -18,6 +19,7 @@
       <module name="booting" options="-parameters" />
       <module name="ch03" options="-parameters" />
       <module name="ch04" options="-parameters" />
+      <module name="ch05" options="-parameters" />
     </option>
   </component>
 </project>
