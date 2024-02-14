@@ -76,7 +76,11 @@ spring:
     driver-class-name: org.h2.Driver
   application:
     name: actuator-observability
-
+  ldap:
+    embedded:
+      port: 8389
+      ldif: classpath:users.ldif
+      base-dn: dc=manning,dc=com
 
 logging:
   pattern:

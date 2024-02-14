@@ -16,7 +16,7 @@ import java.util.Optional;
  * @code @created : 12 Feb, 2024
  */
 
-@Service
+//@Service  // --> disabled for ldap
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
     private final ApplicationUserRepository repository;

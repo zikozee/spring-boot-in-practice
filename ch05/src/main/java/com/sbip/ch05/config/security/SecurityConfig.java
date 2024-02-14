@@ -2,8 +2,10 @@ package com.sbip.ch05.config.security;
 
 import com.sbip.ch05.userdetails.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -77,5 +79,21 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
 //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
+    //ldap config
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .ldapAuthentication()
+                .userDnPatterns("uid={0},ou=people")
+                .groupSearchBase("ou=people")
+                .contextSource()
+                .url("ldap://localhost:8389/dc=manning,dc=com")
+                .and()
+                .passwordCompare()
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordAttribute("userPassword");
     }
 }
