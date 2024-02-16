@@ -5,7 +5,7 @@ server:
   ssl:
     key-store-type: PKCS12
     key-store: classpath:keystore/sbip.p12
-    key-store-password: p@ssw0rd
+    key-store-password: ${keystore}
     key-alias: sbip
   port: 8443
 
@@ -81,12 +81,24 @@ spring:
     password: password
     url: jdbc:h2:mem:userdb
     driver-class-name: org.h2.Driver
-  application:
-    name: actuator-observability
   ldap:
     embedded:
       port: 8389
       ldif: classpath:users.ldif
       base-dn: dc=manning,dc=com
+
+
+  cloud:
+    vault:
+      token: ${VAULT_TOKEN}
+      authentication: token
+      host: localhost
+      port: 8200
+      scheme: http
+  config:
+    import: vault://secret/coursetracker
+
+  application:
+    name: coursetracker
 
 

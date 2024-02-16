@@ -35,4 +35,38 @@ keytool -genkeypair -alias sbip -keyalg RSA -keysize 2048 -storetype PKCS12 -key
 
 
 ## Installing and Configuring HashiCorp Vault
+- vault server -config vault.conf
+- vault operator init
 - 
+```commandline
+vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
+> vault operator unseal eriDeKRPp0ATMKNp8bNWPqZSZzH1soJCYh2ewIcsXlv+ && \
+> vault operator unseal tasPCj0Ygx6eeeH6zM/M5ue6uxDIaoz1w58VPYz0H5uU
+
+```
+
+- export VAULT_TOKEN=<INITIAL ROOT TOKEN>
+
+- vault secrets enable -path=secret kv
+- vault write secret/coursetracker keystore=p@ssw0rd
+
+- configure application.yml
+```yaml
+  spring:  
+    cloud:
+      vault:
+        # place in environment variable VAULT INIT TOKEN, change in EDIT BUILD CONFIGURATION
+        token: ${VAULT_TOKEN}
+        authentication: token
+        host: localhost
+        port: 8200
+        scheme: http
+    config:
+      import: vault://secret/coursetracker
+
+    application:
+      name: coursetracker
+```
+
+- replace passwords or secrets
+  - e.g server.ssl.key-store-password=${keystore}
