@@ -39,14 +39,14 @@ public class SecurityConfig {
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
-//                .formLogin(login ->
-//                        login.loginPage("/login"))
-//                .exceptionHandling(ex ->
-//                        ex.accessDeniedHandler(customAccessDeniedhandler)
-//                                .accessDeniedPage("/index")
-//                )
+                .formLogin(login ->
+                        login.loginPage("/login"))
+                .exceptionHandling(ex ->
+                        ex.accessDeniedHandler(customAccessDeniedhandler)
+                                .accessDeniedPage("/index")
+                )
                 //Using httpBasic in place of form login above  (this opens a dialogue box)
-                .httpBasic(Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults())
 
                 .build();
     }
@@ -87,17 +87,17 @@ public class SecurityConfig {
 
     //LDAP config
     // using ldap in place of UserDetailsService  see (CustomUserDetailService :: as bean annotation i.e @Service is commented out)
-    @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .ldapAuthentication()
-                .userDnPatterns("uid={0},ou=people")
-                .groupSearchBase("ou=people")
-                .contextSource()
-                .url("ldap://localhost:8389/dc=manning,dc=com")
-                .and()
-                .passwordCompare()
-                .passwordEncoder(new BCryptPasswordEncoder())
-                .passwordAttribute("userPassword");
-    }
+//    @Autowired
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .ldapAuthentication()
+//                .userDnPatterns("uid={0},ou=people")
+//                .groupSearchBase("ou=people")
+//                .contextSource()
+//                .url("ldap://localhost:8389/dc=manning,dc=com")
+//                .and()
+//                .passwordCompare()
+//                .passwordEncoder(new BCryptPasswordEncoder())
+//                .passwordAttribute("userPassword");
+//    }
 }
