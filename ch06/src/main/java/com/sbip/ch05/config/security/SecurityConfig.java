@@ -27,14 +27,18 @@ import javax.sql.DataSource;
 public class SecurityConfig {
 
     private final CustomAccessDeniedHandler customAccessDeniedhandler;
-//    private final CustomUserDetailService userDetailService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
+                .requiresChannel(channel ->
+                        channel
+                                .anyRequest()
+                                .requiresSecure()
+                ) // enforcing ssl
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/login")
+                        authorize.requestMatchers("/login", "/webjars/**", "/images/**", "/css/**", "/h2-console/**")
                                 .permitAll()
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
@@ -51,32 +55,36 @@ public class SecurityConfig {
                 .build();
     }
 
-
+// moved up as this is not recommended
+    /**
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring()
                 .requestMatchers("/webjars/**", "/images/**", "/css/**", "/h2-console/**");
 
     }
+     */
 
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        var uds = User.withUsername("user")
-//                .passwordEncoder(passwordEncoder::encode)
-////                .password(passwordEncoder.encode("password"))
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//
-//        var uds2 = User.withUsername("admin")
-//                .passwordEncoder(passwordEncoder::encode)
-//                .password("password")
-////                .password(passwordEncoder.encode("password"))
-//                .roles("ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(uds, uds2);
-//    }
+    /**
+    @Bean
+    public UserDetailsService userDetailsService(){
+        var uds = User.withUsername("user")
+                .passwordEncoder(passwordEncoder::encode)
+//                .password(passwordEncoder.encode("password"))
+                .password("password")
+                .roles("USER")
+                .build();
+
+        var uds2 = User.withUsername("admin")
+                .passwordEncoder(passwordEncoder::encode)
+                .password("password")
+//                .password(passwordEncoder.encode("password"))
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(uds, uds2);
+    }
+        */
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -87,17 +95,19 @@ public class SecurityConfig {
 
     //LDAP config
     // using ldap in place of UserDetailsService  see (CustomUserDetailService :: as bean annotation i.e @Service is commented out)
-//    @Autowired
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .ldapAuthentication()
-//                .userDnPatterns("uid={0},ou=people")
-//                .groupSearchBase("ou=people")
-//                .contextSource()
-//                .url("ldap://localhost:8389/dc=manning,dc=com")
-//                .and()
-//                .passwordCompare()
-//                .passwordEncoder(new BCryptPasswordEncoder())
-//                .passwordAttribute("userPassword");
-//    }
+    /**
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .ldapAuthentication()
+                .userDnPatterns("uid={0},ou=people")
+                .groupSearchBase("ou=people")
+                .contextSource()
+                .url("ldap://localhost:8389/dc=manning,dc=com")
+                .and()
+                .passwordCompare()
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordAttribute("userPassword");
+    }
+    */
 }

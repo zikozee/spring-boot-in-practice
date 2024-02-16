@@ -24,4 +24,15 @@
 
 
 ## Generating Self Signed Certificate
+- this is only necessary if we don't have a load balancer to our application
 keytool -genkeypair -alias sbip -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore sbip.p12 -validity 3650 -storepass p@ssw0rd
+- add to security config
+```java
+    http requiresChannel(channel -> channel.anyRequest().requiresSecure()) // enforcing ssl
+```
+- redirecting http://localhost:8080 to https://localhost:8443  through the RedirectHttpToHttpsConfig class
+- https://localhost:8443/login
+
+
+## Installing and Configuring HashiCorp Vault
+- 
