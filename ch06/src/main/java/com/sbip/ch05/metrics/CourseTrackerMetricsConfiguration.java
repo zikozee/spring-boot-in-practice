@@ -1,6 +1,6 @@
 package com.sbip.ch05.metrics;
 
-import com.sbip.ch05.Ch05Application;
+import com.sbip.ch05.Ch06Application;
 import com.sbip.ch05.metrics.couseTracker.service.DefaultCourseService;
 import io.micrometer.core.instrument.*;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class CourseTrackerMetricsConfiguration {
     @Bean
     public Gauge createCourseGauge(MeterRegistry meterRegistry){
         return Gauge.builder("api.courses.created.gauge",
-                        () -> Ch05Application.getContext().getBean("defaultCourseService", DefaultCourseService.class).count())
+                        () -> Ch06Application.getContext().getBean("defaultCourseService", DefaultCourseService.class).count())
                 .description("Total number of courses created")
                 .register(meterRegistry);
     }

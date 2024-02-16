@@ -8,13 +8,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 @SpringBootApplication
-public class Ch05Application implements ApplicationContextAware {
+public class Ch06Application implements ApplicationContextAware {
 
 	@Getter
 	private static ApplicationContext context;
 
 	public static void main(String[] args) {
-		SpringApplication.run(Ch05Application.class, args);
+		SpringApplication.run(Ch06Application.class, args);
 	}
 
 	@Override
