@@ -25,7 +25,7 @@
 
 ## Generating Self Signed Certificate
 - this is only necessary if we don't have a load balancer to our application
-keytool -genkeypair -alias sbip -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore sbip.p12 -validity 3650 -storepass p@ssw0rd
+- keytool -genkeypair -alias sbip -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore sbip.p12 -validity 3650 -storepass p@ssw0rd
 - add to security config
 ```java
     http requiresChannel(channel -> channel.anyRequest().requiresSecure()) // enforcing ssl
@@ -49,6 +49,15 @@ vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
 
 - vault secrets enable -path=secret kv
 - vault write secret/coursetracker keystore=p@ssw0rd
+      
+          OR
+- use docker-compose  -->>> too tricky
+- create key.pem and certificate.pem
+  - openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
+- Review the created certificate
+- openssl x509 -text -noout -in certificate.pem
+- Combine your key and certificate in a PKCS#12 (P12) bundle [Optional not needed here]
+-  openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.p12
 
 - configure application.yml
 ```yaml
