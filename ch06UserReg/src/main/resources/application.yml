@@ -35,9 +35,9 @@ management:
   # changing actuator port away from application port
   server:
     port: 8081
-  zipkin:
-    tracing:
-      endpoint: http://${ZIPKIN_HOST:localhost}:9411/api/v2/spans
+#  zipkin:
+#    tracing:
+#      endpoint: http://${ZIPKIN_HOST:localhost}:9411/api/v2/spans
 
   tracing:
     sampling:
@@ -82,6 +82,6 @@ spring:
       ldif: classpath:users.ldif
       base-dn: dc=manning,dc=com
 
-logging:
-  pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+#logging:
+#  pattern:
+#    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
