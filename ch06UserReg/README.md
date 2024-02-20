@@ -21,3 +21,4 @@
 - Gauge Metric: a db query can be exposed to gauge metric http://localhost:8081/sbip/metrics/api.courses.created.gauge
 - Timer: measure time taken for an event: http://localhost:8081/sbip/metrics/api.courses.creation.time
 - Distribution Summary: measure the distribution of events
+

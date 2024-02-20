@@ -2,7 +2,9 @@ package com.sbip.ch06.userdetails;
 
 import com.sbip.ch06.model.ApplicationUser;
 import com.sbip.ch06.repo.ApplicationUserRepository;
+import com.sbip.ch06.service.LoginAttemptService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
     private final ApplicationUserRepository repository;
+    private final LoginAttemptService loginAttemptService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,6 +30,9 @@ public class CustomUserDetailService implements UserDetailsService {
         Optional<ApplicationUser> applicationUserByUsername = repository.findApplicationUserByUsername(username);
         if(applicationUserByUsername.isEmpty())
             throw new UsernameNotFoundException("No user with " + username + " exists in the system");
+
+        if(loginAttemptService.isBlocked(username))
+            throw new LockedException("User Account is Locked");
 
         ApplicationUser applicationUser = applicationUserByUsername.get();
 

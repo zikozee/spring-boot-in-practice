@@ -79,3 +79,11 @@ vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
 
 - replace passwords or secrets
   - e.g server.ssl.key-store-password=${keystore}
+
+
+# max Login Attempts
+- we internally use quava for caching
+- listening for the AuthenticationFailureBadCredentialsEvent for wrong input details
+  - we check the username and cache number of failed attempts, and expire after 24 hrs if and admin does not clear
+- and AuthenticationSuccessEvent for successful entry
+  -  where we clear the old bad attempts from cache

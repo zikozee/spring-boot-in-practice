@@ -20,7 +20,19 @@ public class LoginController {
 
     @GetMapping(path="login-verified")
     public String loginVerified(Model model) {
-        model.addAttribute("verified", true);
+        model.addAttribute("loginVerified", true);
+        return "login";
+    }
+
+    @GetMapping(path="login-disabled")
+    public String loginDisabled(Model model) {
+        model.addAttribute("loginDisabled", true);
+        return "login";
+    }
+
+    @GetMapping(path="login-locked")
+    public String loginLocked(Model model) {
+        model.addAttribute("loginLocked", true);
         return "login";
     }
 }

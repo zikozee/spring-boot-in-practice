@@ -30,7 +30,8 @@ public class SecurityConfig {
 
         return http
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/adduser" ,"/login", "/login-error", "/login-verified", "/login-disabled", "/verify/mail")
+                        authorize.requestMatchers("/adduser" ,"/login", "/login-error", "/login-verified",
+                                        "/login-disabled", "/verify/mail", "/login-locked")
                                 .permitAll()
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
