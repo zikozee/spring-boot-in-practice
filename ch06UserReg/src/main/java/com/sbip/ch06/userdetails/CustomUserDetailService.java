@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
  * @code @created : 12 Feb, 2024
  */
 
-//@Service  // --> disabled for ldap
+@Service  // --> disabled for ldap
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
     private final ApplicationUserRepository repository;
@@ -29,7 +30,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
         ApplicationUser applicationUser = applicationUserByUsername.get();
 
-        return User.builder()
+        UserDetails details = User.builder()
                 .username(applicationUser.getUsername())
                 .password(applicationUser.getPassword())
                 .disabled(!applicationUser.isVerified())
@@ -41,6 +42,8 @@ public class CustomUserDetailService implements UserDetailsService {
                 .accountLocked(applicationUser.isLocked())
                 .roles("USER")
                 .build();
+
+        return details;
 
     }
 }

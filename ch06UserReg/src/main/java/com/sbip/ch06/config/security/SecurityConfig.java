@@ -22,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomAccessDeniedHandler customAccessDeniedhandler;
+    private final CustomAuthenticationFailure customAuthenticationFailure;
 //    private final CustomUserDetailService userDetailService;
 
     @Bean
@@ -29,13 +30,14 @@ public class SecurityConfig {
 
         return http
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/adduser" ,"/login", "/login-error")
+                        authorize.requestMatchers("/adduser" ,"/login", "/login-error", "/login-verified", "/login-disabled", "/verify/mail")
                                 .permitAll()
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(login ->
-                        login.loginPage("/login"))
+                        login.loginPage("/login")
+                                .failureHandler(customAuthenticationFailure))
                 .exceptionHandling(ex ->
                         ex.accessDeniedHandler(customAccessDeniedhandler)
                                 .accessDeniedPage("/index")
@@ -82,17 +84,17 @@ public class SecurityConfig {
 
     //LDAP config
     // using ldap in place of UserDetailsService  see (CustomUserDetailService :: as bean annotation i.e @Service is commented out)
-    @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .ldapAuthentication()
-                .userDnPatterns("uid={0},ou=people")
-                .groupSearchBase("ou=people")
-                .contextSource()
-                .url("ldap://localhost:8389/dc=manning,dc=com")
-                .and()
-                .passwordCompare()
-                .passwordEncoder(new BCryptPasswordEncoder())
-                .passwordAttribute("userPassword");
-    }
+//    @Autowired
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .ldapAuthentication()
+//                .userDnPatterns("uid={0},ou=people")
+//                .groupSearchBase("ou=people")
+//                .contextSource()
+//                .url("ldap://localhost:8389/dc=manning,dc=com")
+//                .and()
+//                .passwordCompare()
+//                .passwordEncoder(new BCryptPasswordEncoder())
+//                .passwordAttribute("userPassword");
+//    }
 }

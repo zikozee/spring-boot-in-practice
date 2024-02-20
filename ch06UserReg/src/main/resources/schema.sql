@@ -36,3 +36,9 @@ create table if not exists ct_users(
                          ACC_CRED_EXPIRED BOOLEAN NOT NULL,
                          PRIMARY KEY (ID)
 );
+
+create table if not exists ct_email_verifications (
+                                        verification_id varchar(50),
+                                        username varchar(50),
+                                        PRIMARY KEY (verification_id)
+);

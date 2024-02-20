@@ -14,4 +14,5 @@ public interface ApplicationUserService {
 
     ApplicationUser createUser(@NonNull UserDto userDto);
     ApplicationUser findByUsername(@NonNull String username);
+    void save(ApplicationUser applicationUser);
 }

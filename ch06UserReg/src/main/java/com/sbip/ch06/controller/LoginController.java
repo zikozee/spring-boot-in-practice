@@ -17,4 +17,10 @@ public class LoginController {
         model.addAttribute("loginError", true);
         return "login";
     }
+
+    @GetMapping(path="login-verified")
+    public String loginVerified(Model model) {
+        model.addAttribute("verified", true);
+        return "login";
+    }
 }
