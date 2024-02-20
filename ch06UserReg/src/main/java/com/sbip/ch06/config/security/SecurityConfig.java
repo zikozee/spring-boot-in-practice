@@ -43,6 +43,13 @@ public class SecurityConfig {
                         ex.accessDeniedHandler(customAccessDeniedhandler)
                                 .accessDeniedPage("/index")
                 )
+                .rememberMe(rem -> {
+                    rem.key("remember-me-key")
+                            .rememberMeCookieName("course-tracker-remember-me"); // note we can choose to use persistent token remember me
+                })
+                .logout(logout ->
+                        logout.deleteCookies("course-tracker-remember-me")
+                )
                 //Using httpBasic in place of form login above  (this opens a dialogue box)
 //                .httpBasic(Customizer.withDefaults())
 

@@ -87,3 +87,8 @@ vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
   - we check the username and cache number of failed attempts, and expire after 24 hrs if and admin does not clear
 - and AuthenticationSuccessEvent for successful entry
   -  where we clear the old bad attempts from cache
+
+# remember me
+- we implemented the in memory
+- we can choose to switch to persistent
+- token storage remember me
