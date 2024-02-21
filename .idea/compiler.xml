@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -12,6 +13,7 @@
         <module name="ch03" />
         <module name="ch04" />
         <module name="admin-server" />
+        <module name="ch06AdminClient" />
         <module name="booting" />
       </profile>
     </annotationProcessing>
@@ -24,6 +26,7 @@
       <module name="ch04" options="-parameters" />
       <module name="ch05" options="-parameters" />
       <module name="ch06" options="-parameters" />
+      <module name="ch06AdminClient" options="-parameters" />
       <module name="ch06UserReg" options="-parameters" />
     </option>
   </component>
