@@ -87,6 +87,14 @@ spring:
     username:
     password:
 
+app:
+  email:
+    verification: N
+
+captcha:
+  secret:
+    key:
+
 
 #logging:
 #  pattern:

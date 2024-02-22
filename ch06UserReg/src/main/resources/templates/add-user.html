@@ -78,6 +78,7 @@
                     <input type="password" th:field="*{confirmPassword}" class="form-control" id="confirmPassword" placeholder="Confirm Password">
                     <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="text-danger"></span>
                 </div>
+                <div class="g-recaptcha mb-2" data-sitekey="6LdUw3spAAAAAA4Z1V2n4qF8iNWpx5kkWK2fGxbM"></div>
                 <div class="form-group text-center">
                     <input type="submit" class="btn btn-dark center" value="Sign Up" />
                     <p>Already have an account? <a href="/login">Sign in</a></p>

@@ -92,3 +92,6 @@ vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
 - we implemented the in memory
 - we can choose to switch to persistent
 - token storage remember me
+- 
+# recaptcha
+- best used when multiple login is detected
