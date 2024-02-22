@@ -2,6 +2,7 @@
 
 server:
   port: 8080
+  shutdown: graceful
 testing:
   condition: yeppee
   condition2: yeppee2
@@ -66,13 +67,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+  # very key property for h2
+    defer-datasource-initialization: true
   datasource:
     username: sa
-    hikari:
-      password: password
+    url: jdbc:h2:mem:userdb
+    driver-class-name: org.h2.Driver
+    password: password
   application:
     name: actuator-observability
+
+  jmx:
+    enabled: true
 
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+

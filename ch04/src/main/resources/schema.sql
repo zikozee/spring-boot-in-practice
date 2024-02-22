@@ -1,4 +1,4 @@
-create table courses (
+create table if not exists courses (
   id          INT NOT NULL,
   name        VARCHAR(255),
   category    VARCHAR(255),
