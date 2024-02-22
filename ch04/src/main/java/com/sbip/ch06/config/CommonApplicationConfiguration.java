@@ -1,5 +1,6 @@
 package com.sbip.ch06.config;
 
+import com.sbip.ch06.event.CourseEventHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
