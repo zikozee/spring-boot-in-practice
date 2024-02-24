@@ -1,4 +1,4 @@
-package com.sbip.ch06.config.security;
+package com.sbip.ch06.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 
 @Component
-public class CustomAuthenticationFailure implements AuthenticationFailureHandler {
+public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     private final DefaultRedirectStrategy defaultRedirectStrategy = new DefaultRedirectStrategy();
 

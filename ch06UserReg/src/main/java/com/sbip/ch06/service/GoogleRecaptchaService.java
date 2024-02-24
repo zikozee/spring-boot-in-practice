@@ -1,10 +1,8 @@
 package com.sbip.ch06.service;
 
 import com.sbip.ch06.model.RecaptchaDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -42,7 +40,6 @@ public class GoogleRecaptchaService {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {});
 
-//        Map<String, Object> body = response.getBody();
         boolean success = (Boolean)body.get("success");
         RecaptchaDto recaptchaDto;
         if(!success) recaptchaDto = new RecaptchaDto(false, (List)body.get("error-codes"));

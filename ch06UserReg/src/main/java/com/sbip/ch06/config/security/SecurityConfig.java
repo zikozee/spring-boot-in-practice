@@ -1,16 +1,18 @@
 package com.sbip.ch06.config.security;
 
+import com.sbip.ch06.filter.TotpAuthFilter;
+import com.sbip.ch06.handler.CustomAccessDeniedHandler;
+import com.sbip.ch06.handler.CustomAuthenticationFailureHandler;
+import com.sbip.ch06.handler.DefaultAuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author : Ezekiel Eromosei
@@ -22,23 +24,31 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomAccessDeniedHandler customAccessDeniedhandler;
-    private final CustomAuthenticationFailure customAuthenticationFailure;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+    private final DefaultAuthenticationSuccessHandler successHandler;
+    private final TotpAuthFilter totpAuthFilter;
 //    private final CustomUserDetailService userDetailService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
+                .addFilterBefore(totpAuthFilter, UsernamePasswordAuthenticationFilter.class)
+
                 .authorizeHttpRequests(authorize ->
                         authorize.requestMatchers("/adduser" ,"/login", "/login-error", "/login-verified",
-                                        "/login-disabled", "/verify/mail", "/login-locked")
+                                        "/login-disabled", "/verify/mail", "/login-locked", "/setup-totp", "/confirm-totp")
                                 .permitAll()
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
-                                .anyRequest().authenticated()
+                                .requestMatchers("/totp-login", "/totp-login-error").hasAuthority("TOTP_AUTH_AUTHORITY")
+                                .anyRequest()
+                                .hasRole("USER")
+//                                .authenticated()
                 )
                 .formLogin(login ->
                         login.loginPage("/login")
-                                .failureHandler(customAuthenticationFailure))
+                                .successHandler(successHandler)
+                                .failureHandler(customAuthenticationFailureHandler))
                 .exceptionHandling(ex ->
                         ex.accessDeniedHandler(customAccessDeniedhandler)
                                 .accessDeniedPage("/index")

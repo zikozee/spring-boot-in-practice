@@ -32,6 +32,8 @@ public class ApplicationUser {
     private boolean locked;
     @Column(name = "ACC_CRED_EXPIRED")
     private boolean accountCredentialsExpired;
+    @Column(name = "TOTP_ENABLED")
+    private boolean totpEnabled;
 
     @Override
     public final boolean equals(Object o) {

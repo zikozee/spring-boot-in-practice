@@ -34,6 +34,7 @@ create table if not exists ct_users(
                          VERIFIED    BOOLEAN NOT NULL,
                          LOCKED BOOLEAN NOT NULL,
                          ACC_CRED_EXPIRED BOOLEAN NOT NULL,
+                         TOTP_ENABLED BOOLEAN NOT NULL,
                          PRIMARY KEY (ID)
 );
 
@@ -41,4 +42,12 @@ create table if not exists ct_email_verifications (
                                         verification_id varchar(50),
                                         username varchar(50),
                                         PRIMARY KEY (verification_id)
+);
+
+
+create table if not exists ct_totp_details(
+                        id BIGINT NOT NULL auto_increment,
+                        secret varchar(255),
+                        username varchar(255),
+                        PRIMARY KEY (id)
 );

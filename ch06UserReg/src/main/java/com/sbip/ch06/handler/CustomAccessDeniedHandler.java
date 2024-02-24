@@ -1,4 +1,4 @@
-package com.sbip.ch06.config.security;
+package com.sbip.ch06.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
