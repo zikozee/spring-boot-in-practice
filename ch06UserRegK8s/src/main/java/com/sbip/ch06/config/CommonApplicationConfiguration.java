@@ -17,14 +17,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 public class CommonApplicationConfiguration {
 
 
-    @Bean
+    @Bean(destroyMethod = "")
     @Conditional(CustomCondition.class)
     public String loadingCondition(){
       log.info("Custom Condition 1 loaded");
       return "loaded";
     }
 
-    @Bean
+    @Bean(destroyMethod = "")
     @ConditionalOnProperty("testing.condition2")
     public String loadingCondition2(){
         log.info("Custom Condition 2 loaded");

@@ -14,13 +14,10 @@
         <module name="ch04" />
         <module name="admin-server" />
         <module name="client-admin" />
-        <module name="ch06UserRegK8s" />
+        <module name="user-reg-kubernetes" />
         <module name="booting" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ch06AdminClient" target="21" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -30,10 +27,9 @@
       <module name="ch04" options="-parameters" />
       <module name="ch05" options="-parameters" />
       <module name="ch06" options="-parameters" />
-      <module name="ch06AdminClient" options="-parameters" />
       <module name="ch06UserReg" options="-parameters" />
-      <module name="ch06UserRegK8s" options="-parameters" />
       <module name="client-admin" options="-parameters" />
+      <module name="user-reg-kubernetes" options="-parameters" />
     </option>
   </component>
 </project>

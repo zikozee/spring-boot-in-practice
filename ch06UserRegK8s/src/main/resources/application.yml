@@ -1,3 +1,17 @@
 spring:
   profiles:
     active: local
+
+  # reducing server shutdown from 30s to 20s
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+# to handle request received before shutting down
+server:
+  shutdown: graceful
+
+#enabling liveliness and readiness probes
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true

@@ -95,3 +95,7 @@ vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
 - 
 # recaptcha
 - best used when multiple login is detected
+
+# liveness and readiness probe
+- management.endpoint.health.probes.enabled=true
+- manually delaying readiness and/or liveness probe to do some work see :-> setup/SetupManagingLivenessAndReadiness

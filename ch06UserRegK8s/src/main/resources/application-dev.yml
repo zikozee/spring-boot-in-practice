@@ -32,9 +32,6 @@ management:
       enabled: true
     os:
       enabled: true
-  # changing actuator port away from application port
-  server:
-    port: 8081
 #  zipkin:
 #    tracing:
 #      endpoint: http://${ZIPKIN_HOST:localhost}:9411/api/v2/spans
@@ -64,6 +61,8 @@ spring:
   h2:
     console:
       enabled: true
+      settings:
+        web-allow-others: true
   jpa:
     hibernate:
       ddl-auto: create

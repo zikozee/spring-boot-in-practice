@@ -5,6 +5,7 @@ import com.sbip.ch06.handler.CustomAccessDeniedHandler;
 import com.sbip.ch06.handler.CustomAuthenticationFailureHandler;
 import com.sbip.ch06.handler.DefaultAuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,8 +38,11 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorize ->
                         authorize.requestMatchers("/adduser" ,"/login", "/login-error", "/login-verified",
-                                        "/login-disabled", "/verify/mail", "/login-locked", "/setup-totp", "/confirm-totp")
+                                        "/login-disabled", "/verify/mail", "/login-locked", "/setup-totp", "/confirm-totp",
+                                        "/webjars/**", "/images/**", "/css/**", "/h2-console/**")
                                 .permitAll()
+                                //don't secure
+                                .requestMatchers(EndpointRequest.to("health", "info", "metrics", "releaseNotes", "prometheus")).permitAll()
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
                                 .requestMatchers("/totp-login", "/totp-login-error").hasAuthority("TOTP_AUTH_AUTHORITY")
                                 .anyRequest()
@@ -67,12 +71,12 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(){
-        return (web) -> web.ignoring()
-                .requestMatchers("/webjars/**", "/images/**", "/css/**", "/h2-console/**");
-
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer(){
+//        return (web) -> web.ignoring()
+//                .requestMatchers("/webjars/**", "/images/**", "/css/**", "/h2-console/**");
+//
+//    }
 
 //    @Bean
 //    public UserDetailsService userDetailsService(){

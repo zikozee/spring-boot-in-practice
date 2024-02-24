@@ -1,6 +1,6 @@
 package com.sbip.ch06.metrics;
 
-import com.sbip.ch06.Ch06UserRegApplication;
+import com.sbip.ch06.Ch06UserRegK8sApplication;
 import com.sbip.ch06.metrics.couseTracker.service.DefaultCourseService;
 import io.micrometer.core.instrument.*;
 import lombok.RequiredArgsConstructor;
@@ -16,29 +16,29 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class CourseTrackerMetricsConfiguration {
 
-    @Bean
+    @Bean(destroyMethod = "")
     public Counter createCourseCounter(MeterRegistry meterRegistry){
         return Counter.builder("api.courses.created.count")
                 .description("Total number of courses created")
                 .register(meterRegistry);
     }
 
-    @Bean
+    @Bean(destroyMethod = "")
     public Gauge createCourseGauge(MeterRegistry meterRegistry){
         return Gauge.builder("api.courses.created.gauge",
-                        () -> Ch06UserRegApplication.getContext().getBean("defaultCourseService", DefaultCourseService.class).count())
+                        () -> Ch06UserRegK8sApplication.getContext().getBean("defaultCourseService", DefaultCourseService.class).count())
                 .description("Total number of courses created")
                 .register(meterRegistry);
     }
 
-    @Bean
+    @Bean(destroyMethod = "")
     public Timer createCourseTimer(MeterRegistry meterRegistry){
         return Timer.builder("api.courses.creation.time")
                 .description("Course creation time")
                 .register(meterRegistry);
     }
 
-    @Bean
+    @Bean(destroyMethod = "")
     public DistributionSummary createdDistributionSummary(MeterRegistry meterRegistry){
         return DistributionSummary.builder("api.courses.distribution.summary")
                 .description("Rating distribution summary")
