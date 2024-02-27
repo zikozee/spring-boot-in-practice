@@ -4,6 +4,7 @@ import com.sbip.ch06.filter.TotpAuthFilter;
 import com.sbip.ch06.handler.CustomAccessDeniedHandler;
 import com.sbip.ch06.handler.CustomAuthenticationFailureHandler;
 import com.sbip.ch06.handler.DefaultAuthenticationSuccessHandler;
+import com.sbip.ch06.handler.Oauth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +61,11 @@ public class SecurityConfig {
                 .logout(logout ->
                         logout.deleteCookies("course-tracker-remember-me")
                 )
+                .oauth2Login(oauth -> {
+                    oauth.loginPage("/login")
+                            .successHandler(new Oauth2AuthenticationSuccessHandler());
+//                            .defaultSuccessUrl("/index");
+                })
                 //Using httpBasic in place of form login above  (this opens a dialogue box)
 //                .httpBasic(Customizer.withDefaults())
 

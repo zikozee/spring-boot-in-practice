@@ -86,6 +86,13 @@ spring:
     port: 587
     username:
     password:
+  security:
+    oauth2:
+      registration:
+        google:
+          client-id:
+          client-secret:
+          scope: email, profile
 
 app:
   email:
