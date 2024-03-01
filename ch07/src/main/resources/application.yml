@@ -17,3 +17,9 @@ spring:
     password: password
     url: jdbc:h2:mem:userdb
     driver-class-name: org.h2.Driver
+  mvc:
+    static-path-pattern: /swagger*
+
+app:
+  description: Spring Boot Course Tracker API
+  version: v1
