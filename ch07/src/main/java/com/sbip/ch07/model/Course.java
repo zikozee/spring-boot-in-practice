@@ -27,6 +27,10 @@ public class Course {
 	@Column(name = "RATING")
 	private int rating;
 
+	@Builder.Default
+	@Column(name = "PRICE")
+	private double price = 0.0;
+
 	@Column(name = "DESCRIPTION")
 	private String description;
 }

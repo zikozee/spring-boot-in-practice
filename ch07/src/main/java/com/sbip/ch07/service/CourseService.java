@@ -1,21 +1,20 @@
 package com.sbip.ch07.service;
 
 
-import com.sbip.ch07.model.Course;
+import com.sbip.ch07.model.LegacyCourseDto;
 
-import java.util.Optional;
 
 public interface CourseService {
 
-	Course createCourse(Course course);
+	LegacyCourseDto createCourse(LegacyCourseDto legacyCourseDto);
+
+	LegacyCourseDto getCourseById(long courseId);
 	
-	Course getCourseById(long courseId);
+	Iterable<LegacyCourseDto> getCoursesByCategory(String category);
 	
-	Iterable<Course> getCoursesByCategory(String category);
-	
-	Iterable<Course> getCourses();
-	
-	Course updateCourse(Long courseId, Course course);
+	Iterable<LegacyCourseDto> getCourses();
+
+	LegacyCourseDto updateCourse(Long courseId, LegacyCourseDto course);
 	
 	void deleteCourseById(long courseId);
 

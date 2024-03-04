@@ -104,3 +104,9 @@ vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
 - http://localhost:8080/swagger-ui/index.html
 - you an export as json: -> http://localhost:8080/v3/api-docs
 - which can be viewed or imported in: https://editor.swagger.io/
+
+# Versioning
+- URI versioning - uses a version number in the URI
+- Request parameter versioning - Uses an HTTP request parameter to identify the version
+- Custom HTTP header versioning  - Uses an HTTP request header to distinguish the version
+- Media type versioning - Uses the accept request header in the request to identify the version 

@@ -1,10 +1,14 @@
 package com.sbip.ch07.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.sbip.ch07.exception.CourseNotFoundException;
 import com.sbip.ch07.model.Course;
+import com.sbip.ch07.model.LegacyCourseDto;
 import com.sbip.ch07.repository.CourseRepository;
+import com.sbip.ch07.util.CourseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,35 +20,47 @@ public class CourseServiceImpl implements CourseService {
 	private final CourseRepository courseRepository;
 
 	@Override
-	public Course createCourse(Course course) {
-		return courseRepository.save(course);
+	public LegacyCourseDto createCourse(LegacyCourseDto legacyCourseDto) {
+		Course course = CourseUtil.from(legacyCourseDto);
+		return CourseUtil.buildLegacyCourseDto(courseRepository.save(course));
 	}
 
 	@Override
-	public Course getCourseById(long courseId) {
+	public LegacyCourseDto getCourseById(long courseId) {
 		return findCourseById(courseId);
 	}
 
 	@Override
-	public Iterable<Course> getCoursesByCategory(String category) {
-		return courseRepository.findAllByCategory(category);
+	public List<LegacyCourseDto> getCoursesByCategory(String category) {
+		List<LegacyCourseDto> legacyCourseDtos = new ArrayList<>();
+		courseRepository.findAllByCategory(category).spliterator()
+				.forEachRemaining(c -> legacyCourseDtos.add(CourseUtil.buildLegacyCourseDto(c)));
+		return legacyCourseDtos;
 	}
 
 	@Override
-	public Iterable<Course> getCourses() {
-		return courseRepository.findAll();
+	public List<LegacyCourseDto> getCourses() {
+		List<LegacyCourseDto> legacyCourseDtos = new ArrayList<>();
+		courseRepository.findAll().spliterator()
+				.forEachRemaining(c -> legacyCourseDtos.add(CourseUtil.buildLegacyCourseDto(c)));
+		return legacyCourseDtos;
 	}
 
 	@Override
-	public Course updateCourse(Long courseId, Course course) {
-		Course existingCourse = findCourseById(courseId);
+	public LegacyCourseDto updateCourse(Long courseId, LegacyCourseDto course) {
+		LegacyCourseDto legacyCourseDto = findCourseById(courseId);
 
-		existingCourse.setName(course.getName());
-		existingCourse.setCategory(course.getCategory());
-		existingCourse.setDescription(course.getDescription());
-		existingCourse.setRating(course.getRating());
-			
-		return courseRepository.save(existingCourse);
+		Course existingCourse = CourseUtil.from(legacyCourseDto);
+
+		existingCourse.setId(courseId);
+		existingCourse.setName(course.name());
+		existingCourse.setCategory(course.category());
+		existingCourse.setRating(course.rating());
+		existingCourse.setPrice(0.0);
+		existingCourse.setDescription(course.description());
+
+
+		return CourseUtil.buildLegacyCourseDto(courseRepository.save(existingCourse));
 	}
 
 	@Override
@@ -59,8 +75,9 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 
-	private Course findCourseById(Long courseId){
+	private LegacyCourseDto findCourseById(Long courseId){
 		return courseRepository.findById(courseId)
+				.map(CourseUtil::buildLegacyCourseDto)
 				.orElseThrow(() -> new CourseNotFoundException(String.format("No Course with id %s is available", courseId)));
 	}
 
