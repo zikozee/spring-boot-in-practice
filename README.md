@@ -110,3 +110,6 @@ vault operator unseal qoxaJmOMxSR4koHP0GI4F+NBi3IipXOf57mVJb6k+BYh && \
 - Request parameter versioning - Uses an HTTP request parameter to identify the version
 - Custom HTTP header versioning  - Uses an HTTP request header to distinguish the version
 - Media type versioning - Uses the accept request header in the request to identify the version 
+
+# security
+- used spring microservice in action auth server

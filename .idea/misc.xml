@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/admin-server/pom.xml" />
         <option value="$PROJECT_DIR$/client-admin/pom.xml" />
         <option value="$PROJECT_DIR$/ch06UserRegK8s/pom.xml" />
+        <option value="$PROJECT_DIR$/ch07Secured/pom.xml" />
       </list>
     </option>
   </component>
