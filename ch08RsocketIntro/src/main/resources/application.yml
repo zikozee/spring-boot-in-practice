@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: RsocketIntro
+
+  rsocket:
+    server:
+      port: 7000
+
+  main:
+    lazy-initialization: true
