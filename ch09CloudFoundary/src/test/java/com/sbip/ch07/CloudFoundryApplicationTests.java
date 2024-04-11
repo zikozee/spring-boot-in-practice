@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-class CloudFoundaryApplicationTests {
+class CloudFoundryApplicationTests {
 
 	@Autowired
 	private CourseService courseService;
@@ -42,7 +42,7 @@ class CloudFoundaryApplicationTests {
 				.description("Rapid Spring Boot Application Development").build();
 		ObjectMapper objectMapper = new ObjectMapper();
 
-		MockHttpServletResponse response = mockMvc.perform(post("/courses")
+		MockHttpServletResponse response = mockMvc.perform(post("/courses/v1")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(course)))
 				.andDo(print())
@@ -67,7 +67,7 @@ class CloudFoundaryApplicationTests {
 				.description("Rapid Spring Boot Application Development").build();
 						ObjectMapper objectMapper = new ObjectMapper();
 
-		MockHttpServletResponse response = mockMvc.perform(post("/courses")
+		MockHttpServletResponse response = mockMvc.perform(post("/courses/v1")
 						.contentType("application/json")
 						.content(objectMapper.writeValueAsString(course)))
 				.andDo(print())
@@ -79,7 +79,7 @@ class CloudFoundaryApplicationTests {
 								.andExpect(status().isCreated()).andReturn().getResponse();
 		Integer id = JsonPath.parse(response.getContentAsString()).read("$.id");
 
-		mockMvc.perform(get("/courses/{id}",id))
+		mockMvc.perform(get("/courses/v1/{id}",id))
 				.andDo(print())
 				.andExpect(jsonPath("$.*", hasSize(5)))
 				.andExpect(jsonPath("$.id", greaterThan(0)))
@@ -92,7 +92,7 @@ class CloudFoundaryApplicationTests {
 
 	@Test
 	public void testInvalidCourseId() throws Exception {
-		mockMvc.perform(get("/courses/{id}",100))
+		mockMvc.perform(get("/courses/v1/{id}",100))
 				.andDo(print())
 				.andExpect(status().isNotFound());
 	}
@@ -106,7 +106,7 @@ class CloudFoundaryApplicationTests {
 				.description("Rapid Spring Boot Application Development").build();
 						ObjectMapper objectMapper = new ObjectMapper();
 
-		MockHttpServletResponse response = mockMvc.perform(post("/courses")
+		MockHttpServletResponse response = mockMvc.perform(post("/courses/v1")
 						.contentType("application/json")
 						.content(objectMapper.writeValueAsString(course)))
 				.andDo(print())
@@ -124,7 +124,7 @@ class CloudFoundaryApplicationTests {
 				.rating(5)
 				.description("Rapid Spring Boot Application Development").build();
 
-		MockHttpServletResponse response2 = mockMvc.perform(put("/courses/{id}", id)
+		MockHttpServletResponse response2 = mockMvc.perform(put("/courses/v1/{id}", id)
 										.contentType("application/json")
 										.content(objectMapper.writeValueAsString(updatedCourse)))
 								.andDo(print())
@@ -145,7 +145,7 @@ class CloudFoundaryApplicationTests {
 				.description("Rapid Spring Boot Application Development").build();
 						ObjectMapper objectMapper = new ObjectMapper();
 
-		MockHttpServletResponse response = mockMvc.perform(post("/courses")
+		MockHttpServletResponse response = mockMvc.perform(post("/courses/v1")
 						.contentType("application/json")
 						.content(objectMapper.writeValueAsString(course)))
 				.andDo(print())
@@ -157,9 +157,9 @@ class CloudFoundaryApplicationTests {
 								.andExpect(status().isCreated()).andReturn().getResponse();
 		Integer id = JsonPath.parse(response.getContentAsString()).read("$.id");
 
-		mockMvc.perform(delete("/courses/{id}", id))
+		mockMvc.perform(delete("/courses/v1/{id}", id))
 				.andDo(print())
-				.andExpect(status().isOk());
+				.andExpect(status().isNoContent());
 
 	}
 }

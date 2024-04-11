@@ -19,6 +19,8 @@ spring:
     driver-class-name: org.h2.Driver
   mvc:
     static-path-pattern: /swagger*
+  application:
+    name: course-tracker-app-cf
 
 app:
   description: Spring Boot Course Tracker API
