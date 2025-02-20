@@ -14,7 +14,8 @@ import java.util.List;
 
 @Configuration
 @ConfigurationProperties(prefix = "cp.sbip.ct")
-@Data
+@Getter @Setter
+@ToString
 @NoArgsConstructor
 public class AppProperties {
     private String name;
@@ -30,13 +31,15 @@ public class AppProperties {
         this.security = security;
     }
 
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter @Setter
-    @ToString
-    public static class Security {
-        private boolean enabled;
-        private String token;
-        private List<String> roles;
-    }
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    @Getter @Setter
+//    @ToString
+//    public static class Security {
+//        private boolean enabled;
+//        private String token;
+//        private List<String> roles;
+//    }
+
+    public record Security(String name, String token, List<String> roles) {}
 }

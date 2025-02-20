@@ -13,7 +13,8 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @PropertySource(value = "dbconfig.properties")
-@PropertySource(value = "foo.yml", factory = YamlPropertySourceFactory.class)
+@PropertySource(value = "sbip.yml", factory = YamlPropertySourceFactory.class)
+//@PropertySource(value = "foo.yml", factory = YamlPropertySourceFactory.class)
 @RequiredArgsConstructor
 public class DbConfiguration {
 

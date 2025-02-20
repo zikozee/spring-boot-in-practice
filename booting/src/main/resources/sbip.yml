@@ -13,6 +13,7 @@ cp:
       ip: 127.0.0.1
       port: 9090
       security:
+        name: secured-guy
         enabled: true
         token: asdfYYdakfskjfskjfjfskjs
         roles: USER,ADMIN

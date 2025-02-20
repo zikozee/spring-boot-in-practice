@@ -19,12 +19,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.util.Properties;
 import java.util.Set;
 
-@Slf4j
 @SpringBootApplication
 @ConfigurationPropertiesScan
 public class BootingApplication implements CommandLineRunner {
 
-    private static Logger logger = LoggerFactory.getLogger(BootingApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(BootingApplication.class);
 
     public static void main(String[] args) {
         Properties properties = new Properties();
@@ -37,6 +36,7 @@ public class BootingApplication implements CommandLineRunner {
         AppPropertiesRunner appPropertiesRunner = applicationContext.getBean(AppPropertiesRunner.class);
         logger.info(dbConfiguration.toString());
         logger.info(appPropertiesRunner.getAppProperties().toString());
+        logger.info("token: {}", appPropertiesRunner.getAppProperties().getSecurity().token());
     }
 
     @Override
